@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     # project apps
+    'delivery_company.apps.DeliveryCompanyConfig'
 ]
 
 MIDDLEWARE = [
