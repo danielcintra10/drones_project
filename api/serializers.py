@@ -1,5 +1,6 @@
 from delivery_company.models import Drone, Medication, Order, LoadItem
 from rest_framework import serializers
+from delivery_company.validators import validate_drone_weight_limit
 
 
 class DroneSerializer(serializers.ModelSerializer):
@@ -16,6 +17,9 @@ class DroneSerializer(serializers.ModelSerializer):
         if quantity_of_drones >= 10:
             raise serializers.ValidationError(f"Company only have 10 drones, "
                                               f"actual number of drones {quantity_of_drones}")
+        drone_model = data['drone_model']
+        weight_limit = data['weight_limit']
+        validate_drone_weight_limit(drone_model, weight_limit)
         return data
 
 

@@ -2,14 +2,14 @@ from django.db import models
 from django.core.exceptions import ValidationError
 from .utils import drone_states, drone_models
 from .validators import validate_battery_capacity, validate_medication_code, validate_medication_name, \
-    validate_load_quantity
+    validate_load_quantity, validate_weight_limit
 
 
 # Create your models here.
 class Drone(models.Model):
     serial_number = models.SlugField(max_length=100, unique=True)
     drone_model = models.CharField(max_length=1, choices=drone_models)
-    weight_limit = models.IntegerField()
+    weight_limit = models.IntegerField(validators=[validate_weight_limit, ])
     battery_capacity = models.IntegerField(validators=[validate_battery_capacity, ])
     state = models.CharField(max_length=3, choices=drone_states)
 
