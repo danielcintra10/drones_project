@@ -70,3 +70,12 @@ class LoadItem(models.Model):
 
     def __str__(self):
         return f"{self.order_code}, {self.medication}, {self.medication}"
+
+
+class BatteryLog(models.Model):
+    drone = models.ForeignKey(Drone, on_delete=models.CASCADE)
+    battery_level = models.IntegerField()
+    date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f" {self.drone} {self.battery_level} "
