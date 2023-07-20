@@ -39,7 +39,9 @@ class CheckingItems(APIView):
 
     def get(self, request, serial_number):
         order = Order.objects.filter(drone__serial_number__exact=serial_number,
-                                     drone__state__exact='LDD').prefetch_related('load_items')
-        items = order.load_items.all()
-        serializer = LoadItemSerializer(items, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+                                     drone__state__iexact="LDD").prefetch_related('load_items').first()
+        if order:
+            items = order.load_items.all()
+            serializer = LoadItemSerializer(items, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response({"error": "Drone serial_number may be wrong or this drone is not LOADED"})

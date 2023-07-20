@@ -30,7 +30,7 @@ class MedicationSerializer(serializers.ModelSerializer):
 
 
 class LoadItemSerializer(serializers.ModelSerializer):
-    medication = MedicationSerializer()
+    medication = serializers.SlugRelatedField(slug_field='code', queryset=Medication.objects.all())
 
     class Meta:
         model = LoadItem
@@ -38,14 +38,13 @@ class LoadItemSerializer(serializers.ModelSerializer):
 
 
 class OrderSerializer(serializers.ModelSerializer):
-    drone = DroneSerializer()
-    items = LoadItemSerializer(many=True)
+    drone = serializers.SlugRelatedField(slug_field='serial_number', queryset=Drone.objects.all())
+    items = LoadItemSerializer(many=True, write_only=True)
 
     class Meta:
         model = Order
-        fields = ('order_code', 'drone', 'date')
+        fields = ('order_code', 'drone', 'date', 'items')
         read_only_fields = ('date', )
-        extra_kwargs = {'items': {'write_only': True}}
 
     @staticmethod
     def validation_rules(drone, items):
@@ -75,7 +74,8 @@ class OrderSerializer(serializers.ModelSerializer):
         drone = validated_data.get('drone')
         items = validated_data.get('items')
         # The new order is created
-        new_order = Order.objects.create(order_code=order_code, drone=drone, )
+        new_order = Order(order_code=order_code, drone=drone, )
+        new_order.save()
         # Logic to create the items of the previously created order
         items_list = []
         for medication_and_quantity in items:

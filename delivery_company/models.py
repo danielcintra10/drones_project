@@ -69,4 +69,4 @@ class LoadItem(models.Model):
     quantity = models.IntegerField(validators=[validate_load_quantity, ], default=1)
 
     def __str__(self):
-        return self.order_number, self.medication, self.medication
+        return f"{self.order_code}, {self.medication}, {self.medication}"
