@@ -12,7 +12,7 @@ First you will need to clone down the repository.
 3) You can now clone the project from GitHub. You can do this a few different ways.
 I use HTTPS.
 ```
-- git clone https://github.com/danielcintra10/medical_drones.git .
+git clone https://github.com/danielcintra10/drones_project_definitive_edition.git .
 ```
 ### Virtual environment
 Create a virtual environment to run the project.
