@@ -1,6 +1,11 @@
 # Medical Drones
 
+Answer to technical test, the instructions for it are found in the following pdf: [Drones Project Instructions](./Drones-v1.pdf)
+
+
 ## Getting started
+
+Required Python=> 3.11
 
 ### Clone repository
 First you will need to clone down the repository.
@@ -12,7 +17,7 @@ First you will need to clone down the repository.
 3) You can now clone the project from GitHub. You can do this a few different ways.
 I use HTTPS.
 ```
-- git clone https://github.com/danielcintra10/medical_drones.git .
+- git clone https://github.com/danielcintra10/drones_project.git .
 ```
 ### Virtual environment
 Create a virtual environment to run the project.
